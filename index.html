@@ -8,8 +8,85 @@
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> <!-- Link to bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
 </head>
 <body>
+    <header class=" border bg-dark text-white">
+        <h1>Weather Dashboard</h1>
+    </header>
+    <section class = "container-fluid">
+        <div class="row">
+            <aside class = "col-3 bg-light">
+                <form>
+                    <label>Search for a City:</label><br/>
+                    <input/>
+                    <button class="btn-primary rounded"><i class="fas fa-search"></i></button>
+                </form>
+                <div id="search-results">
+                    <!-- search results go here -->
+                </div>
+            </aside>
+            <section class ="col-9 border">
+                <article class = "row container m-2 rounded border">
+                    <h2 id="city-name">placeholder city (date)</h2>
+                    <p id="temp">Temperature: </p>
+                    <p id="humidity">Humidity: </p>
+                    <p id="wSpeed">Wind Speed: </p>
+                    <p>UV Index: <div id="UV"></div></p>
+                </article>
+                <div class = "row d-flex">
+                    <h2>5-Day Forecast: </h2>
+                    <div class="col-2" style="width: 14rem;">
+                        <div class="card bg-info">
+                            <p>Date placeholder: </p>
+                            <i>icon placeholder: </i>
+                            <p>Temperature: </p>
+                            <p>Humidity: </p>
+                        </div>
+                    </div>
+                    <div class="col-2" style="width: 14rem;">
+                        <div class="card bg-info">
+                            <p>Date placeholder: </p>
+                            <i>icon placeholder: </i>
+                            <p>Temperature: </p>
+                            <p>Humidity: </p>
+                        </div>
+                    </div>
+                    <div class="col-2" style="width: 14rem;">
+                        <div class="card bg-info">
+                            <p>Date placeholder: </p>
+                            <i>icon placeholder: </i>
+                            <p>Temperature: </p>
+                            <p>Humidity: </p>
+                        </div>
+                    </div>
+                    <div class="col-2" style="width: 14rem;">
+                        <div class="card bg-info">
+                            <p>Date placeholder: </p>
+                            <i>icon placeholder: </i>
+                            <p>Temperature: </p>
+                            <p>Humidity: </p>
+                        </div>
+                    </div>
+                    <div class="col-2" style="width: 14rem;">
+                        <div class="card bg-info">
+                            <p>Date placeholder: </p>
+                            <i>icon placeholder: </i>
+                            <p>Temperature: </p>
+                            <p>Humidity: </p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </section>
+        </div>  
+    </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="assets/scripts/script.js"></script>

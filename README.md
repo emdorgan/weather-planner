@@ -1,11 +1,10 @@
-# Weather Planner
+# Weather Dashboard
 
 This project uses server-side APIs to get the latest up-to-date weather in any city around the world. The user can search for a city and see the current temperature, humidity, wind speed and UV index along with a 5 day forecast. Previous searches 
 
 ## To Do list
 
-* Write up HTML and VERY basic CSS
-* Write sp
+* Write pseudocode
 
 ## Getting Started
 
