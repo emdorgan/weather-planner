@@ -1,10 +1,11 @@
 # Weather Dashboard
 
-This project uses server-side APIs to get the latest up-to-date weather in any city around the world. The user can search for a city and see the current temperature, humidity, wind speed and UV index along with a 5 day forecast. Previous searches 
+This project uses server-side APIs to get the latest up-to-date weather in any city around the world. The user can search for a city and see the current temperature, humidity, wind speed and UV index along with a 5 day forecast. The previous 8 searches show up in the sidebar 
 
 ## To Do list
 
 * Write pseudocode
+* Familiarize myself with the weather API
 
 ## Getting Started
 
@@ -12,7 +13,7 @@ This project uses server-side APIs to get the latest up-to-date weather in any c
 
 ## Deployed Link
 
-* [See Live Site](#)
+* [See Live Site](https://emdorgan.github.io/weather-planner/)
 
 ## Screenshots
 
