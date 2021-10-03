@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 .favorable {
-  background-color: green;
+  background-color: rgb(23, 165, 23);
   color: white;
 }
 .low {
@@ -23,6 +23,10 @@
   color: white;
 }
 
+section article {
+  font-size: 1.4em;
+}
+
 .custom-display {
   display: inline;
   width:fit-content;
@@ -30,4 +34,8 @@
 }
 #fiveDay h2{
   margin-bottom: 20px;
+}
+#fiveDay div{
+  font-size: 1.1em;
+  text-align: center;
 }

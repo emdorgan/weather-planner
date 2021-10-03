@@ -16,9 +16,6 @@ var searchedCity = "San Francisco";
 var lat;
 var lon;
 var today = moment().format('(M/D/YYYY)');
-var tomorrow = moment().add(1, 'days').format('(M/D/YYYY)');
-
-console.log(tomorrow);
 
 var requestUrlGeo= "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=266918c8637e87badd2e272562101ade";
 
@@ -62,14 +59,14 @@ function getWeather(city){
             }
             for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to generate the 5 day forecast with a for loop
                 $('#fiveDay').append(`
-                <div class="col-2" style="width: 12rem;">
-                            <div class="card bg-info p-2">
-                                <p>${moment().add(i+1, 'days').format('(M/D/YYYY)')}</p>
-                                <i>icon placeholder</i>
-                                <p>Temperature: </p>
-                                <p>Humidity: </p>
-                            </div>
-                        </div>
+                <div class="col-2" style="width: 14rem;">
+                    <div class="card bg-info p-2 text-white">
+                        <p>${moment().add(i+1, 'days').format('(M/D/YYYY)')}</p>
+                        <img src="${"http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon +"@2x.png"}">
+                        <p>Temp: ${data.daily[i].temp.day} &#176;F</p>
+                        <p>Humidity: ${data.daily[i].humidity}%</p>
+                    </div>
+                </div>
                 `)
             }
         });
