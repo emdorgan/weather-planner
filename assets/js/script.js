@@ -16,12 +16,13 @@ var searchedCity = "San Francisco";
 var lat;
 var lon;
 var today = moment().format('(M/D/YYYY)');
+var tomorrow = moment().add(1, 'days').format('(M/D/YYYY)');
 
-console.log(today);
+console.log(tomorrow);
 
 var requestUrlGeo= "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=266918c8637e87badd2e272562101ade";
 
-function getGeoResults(city){
+function getWeather(city){
     $.ajax({                                    
         url: requestUrlGeo,
         method: 'GET',
@@ -59,10 +60,21 @@ function getGeoResults(city){
             else if(data.current.uvi >= 11){
                 $('#UV').addClass('extreme');
             }
-
+            for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to generate the 5 day forecast with a for loop
+                $('#fiveDay').append(`
+                <div class="col-2" style="width: 12rem;">
+                            <div class="card bg-info p-2">
+                                <p>${moment().add(i+1, 'days').format('(M/D/YYYY)')}</p>
+                                <i>icon placeholder</i>
+                                <p>Temperature: </p>
+                                <p>Humidity: </p>
+                            </div>
+                        </div>
+                `)
+            }
         });
     });   
 };
 
-getGeoResults(searchedCity);
+getWeather(searchedCity);
 

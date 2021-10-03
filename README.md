@@ -4,8 +4,9 @@ This project uses server-side APIs to get the latest up-to-date weather in any c
 
 ## To Do list
 
-* Write pseudocode
-* Familiarize myself with the weather API
+* Set up for loop for 5 day forecast
+* Make the button with event listener that takes data and sets it to searchedCity variable
+* Make it so that a new button is generated in the search history for the past 8 cities searched
 
 ## Getting Started
 
