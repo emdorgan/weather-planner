@@ -12,9 +12,12 @@
 
 // When user clicks on the generated button, set searchedCity to the value of the generated button and repeat step 3
 
-var searchedCity = "san francisco";
+var searchedCity = "los angeles";
 var lat;
 var lon;
+var today = moment().format('(M/D/YYYY)');
+
+console.log(today);
 
 var requestUrlGeo= "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=266918c8637e87badd2e272562101ade";
 
@@ -27,18 +30,20 @@ function getGeoResults(city){
         lat = response.coord.lat;
         lon = response.coord.lon;
         // console.log(lat, lon);
-        var requestUrlWeather= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=266918c8637e87badd2e272562101ade&units=imperial";
+        var requestUrlWeather= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=266918c8637e87badd2e272562101ade&units=imperial"; // using one-call-API since it gives a 7 day forecast
         $.ajax({
             url: requestUrlWeather,
             method: 'GET',
         }).then(function (data){
             console.log(data);
-            
+            var iconUrl = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";
+            var weatherIcon = $('<img>').attr('src', iconUrl);
+            $('#city-name').text(searchedCity + " " + today);
+            $('#city-name').append(weatherIcon);
+            $('#temp').html("Temperature: " + data.current.temp + " &#176;F");
         });
     });   
 };
-
-var requestUrlWeather;
 
 getGeoResults(searchedCity);
 
