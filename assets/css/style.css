@@ -3,3 +3,28 @@
 *::after {
   box-sizing: border-box;
 }
+.favorable {
+  background-color: green;
+  color: white;
+}
+.low {
+  background-color: yellow;
+}
+.moderate {
+  background-color: orange;
+  color: white;
+}
+.severe {
+  background-color: red;
+  color: white;
+}
+.extreme {
+  background-color: darkmagenta;
+  color: white;
+}
+
+.custom-display {
+  display: inline;
+  width:fit-content;
+  margin-bottom: 20px;
+}

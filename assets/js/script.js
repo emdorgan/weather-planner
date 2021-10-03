@@ -12,7 +12,7 @@
 
 // When user clicks on the generated button, set searchedCity to the value of the generated button and repeat step 3
 
-var searchedCity = "los angeles";
+var searchedCity = "San Francisco";
 var lat;
 var lon;
 var today = moment().format('(M/D/YYYY)');
@@ -41,6 +41,25 @@ function getGeoResults(city){
             $('#city-name').text(searchedCity + " " + today);
             $('#city-name').append(weatherIcon);
             $('#temp').html("Temperature: " + data.current.temp + " &#176;F");
+            $('#humidity').text("Humidity: " + data.current.humidity + "%");
+            $('#wSpeed').text(" Wind Speed: " + data.current.wind_speed + "MPH");
+            $('#UV').text(data.current.uvi);
+            if(data.current.uvi < 3){
+                $('#UV').addClass('favorable');
+            }
+            else if(data.current.uvi >= 3 && data.current.uvi < 6){
+                $('#UV').addClass('low');
+            }
+            else if(data.current.uvi >= 6 && data.current.uvi < 8){
+                $('#UV').addClass('moderate');
+            }
+            else if(data.current.uvi >= 8 && data.current.uvi < 11){
+                $('#UV').addClass('severe');
+            }
+            else if(data.current.uvi >= 11){
+                $('#UV').addClass('extreme');
+            }
+
         });
     });   
 };
