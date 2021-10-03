@@ -12,12 +12,33 @@
 
 // When user clicks on the generated button, set searchedCity to the value of the generated button and repeat step 3
 
-var searchedCity;
+var searchedCity = "san francisco";
+var lat;
+var lon;
 
-function getSearchResults(searchedCity){
-    $.ajax({
-        url: requestUrl,
+var requestUrlGeo= "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=266918c8637e87badd2e272562101ade";
+
+function getGeoResults(city){
+    $.ajax({                                    
+        url: requestUrlGeo,
         method: 'GET',
     }).then(function (response) {
+        
+        lat = response.coord.lat;
+        lon = response.coord.lon;
+        // console.log(lat, lon);
+        var requestUrlWeather= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=266918c8637e87badd2e272562101ade&units=imperial";
+        $.ajax({
+            url: requestUrlWeather,
+            method: 'GET',
+        }).then(function (data){
+            console.log(data);
+            
+        });
     });   
 };
+
+var requestUrlWeather;
+
+getGeoResults(searchedCity);
+
