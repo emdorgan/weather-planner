@@ -36,3 +36,6 @@ section article {
   font-size: 1.1em;
   text-align: center;
 }
+aside form {
+  margin: 10px 0px 10px 0px;
+}
