@@ -32,29 +32,29 @@ $(document).ready(function(){       // waits to the document to fully load befor
 
     }
 
-    function getWeather(city){                                  // main calling function
-        $.ajax({                                    
-            url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=266918c8637e87badd2e272562101ade",
+    function getWeather(city){                                  // major function which gets the weather of the city passed through the arg
+        $.ajax({                                                // uses AJAX to make an API request for coordinates of the city entered by the user
+            url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=266918c8637e87badd2e272562101ade",      // puts the city into a Geolocator
             method: 'GET',
         }).then(function (response) {
-            lat = response.coord.lat;
-            lon = response.coord.lon;
+            lat = response.coord.lat;                                                                   //gets the latitude
+            lon = response.coord.lon;                                                                   // and longitude of the searched city
             // console.log(lat, lon);
             var requestUrlWeather= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=266918c8637e87badd2e272562101ade&units=imperial"; // using one-call-API since it gives a 7 day forecast
-            $.ajax({
+            $.ajax({                                                                                    // uses AJAX to get the weather data of that coordinate set
                 url: requestUrlWeather,
                 method: 'GET',
-            }).then(function (data){
-                var iconUrl = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";
-                var weatherIcon = $('<img>').attr('src', iconUrl);
-                $('#city-name').text(searchedCity + " " + today);
-                $('#city-name').append(weatherIcon);
-                $('#temp').html("Temperature: " + data.current.temp + " &#176;F");
-                $('#humidity').text("Humidity: " + data.current.humidity + "%");
-                $('#wSpeed').text(" Wind Speed: " + data.current.wind_speed + " MPH");
-                $('#UV').text(data.current.uvi);
-                $('#UV').removeAttr('class');
-                if(data.current.uvi < 3){
+            }).then(function (data){                                                                    // promise that waits for the data to be recieved
+                var iconUrl = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";     //sets the weather icon into a URL provided by open weather
+                var weatherIcon = $('<img>').attr('src', iconUrl);                                  // sets src attribute of the image tag for the icon
+                $('#city-name').text(searchedCity + " " + today);                                   // sets the searched city name and uses moment.js to get today's date
+                $('#city-name').append(weatherIcon);                                                // appends the icon
+                $('#temp').html("Temperature: " + data.current.temp + " &#176;F");                  // sets the temp data
+                $('#humidity').text("Humidity: " + data.current.humidity + "%");                    // sets the humidity data
+                $('#wSpeed').text(" Wind Speed: " + data.current.wind_speed + " MPH");              // sets the wind speed data
+                $('#UV').text(data.current.uvi);                                                    // sets the UV index
+                $('#UV').removeAttr('class');                                                       // removes any previous styling from past searches
+                if(data.current.uvi < 3){                                                       //sets the color of the UV index according to how severe it is (5 different levels)
                     $('#UV').addClass('favorable rounded custom-display');
                 }
                 else if(data.current.uvi >= 3 && data.current.uvi < 6){
@@ -70,7 +70,7 @@ $(document).ready(function(){       // waits to the document to fully load befor
                     $('#UV').addClass('extreme rounded custom-display');
                 }
                 $('#fiveDay').empty();                  // empties out previous 5-day forecast from previous searches
-                for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to generate the 5 day forecast with a for loop
+                for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to get a single card, and I'm using a for loop to iterate through and make 5 cards. I use moment().add gets the sequential days (+1 to prevent offByOne error)
                     $('#fiveDay').append(`
                     <div class="col-2" style="width: 14rem;">
                         <div class="card bg-info p-2 text-white">
@@ -82,22 +82,22 @@ $(document).ready(function(){       // waits to the document to fully load befor
                     </div>
                     `)
                 }
-                localStorage.setItem(searchedCity, searchedCity);
-                $('#search-results').empty();
-                loadButtons();
+                localStorage.setItem(searchedCity, searchedCity);   // sets the search result to a key and value (only the key will be used), this is a clever way to prevent dupe results, since the keys have to be unique
+                $('#search-results').empty();                       // deletes all previous search result buttons
+                loadButtons();                                      // and calls the loadButtons() function to load a new set that includes the city that the user just searched
             });
         });   
     };
 
-    $('#search-results').on('click', '.btn-outline-secondary', function(event){
-        searchedCity = $(this).val();
+    $('#search-results').on('click', '.btn-outline-secondary', function(){         //adds an event listener to the PARENT of the dynamically generated buttons but sets the property so that it's applicable to the generated buttons
+        searchedCity = $(this).val();                                                   // sets the value of searched city to whichever button was clicked using the 'this' keyword
         getWeather(searchedCity);
     });
 
-    $('#searchBtn').on('click', function(event){
-        event.preventDefault();
-        searchedCity = $(this).siblings('#cityName').val()
-        getWeather(searchedCity);
+    $('#searchBtn').on('click', function(event){                                        // adds event listener to the search button
+        event.preventDefault();                                                         // prevents default behavior
+        searchedCity = $(this).siblings('#cityName').val()                              // sets the variable that will be passed into getWeather() to what the user just typed in
+        getWeather(searchedCity);                                                       // calls the huge API function with that variable as an argument
     });
     loadButtons();                  // calls the 'loadButtons' function when the browser first loads
 });
