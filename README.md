@@ -33,3 +33,7 @@ Enter a VALID city name to get the weather in that city
 - [Link to Portfolio Site](https://emdorgan.github.io/portfolio/)
 - [Link to Github](https://github.com/emdorgan)
 - [Link to LinkedIn](https://www.linkedin.com/in/emily-dorgan/)
+
+## Acknowledgements
+
+* Open Weather API for their geolocator and weather data

@@ -9,11 +9,9 @@
 // For each panel on the 5-day forecast, load data for that panel (this step needs more details once I figure out what the weather API object looks like)
 // If there are fewer than 8 buttons, then
 // Generate a button on the aside panel using jquery button API with a name of SearchedCity and a value of SearchedCity
-
 // When user clicks on the generated button, set searchedCity to the value of the generated button and repeat step 3
 
 $(document).ready(function(){       // waits to the document to fully load before doing any jQuery
-
     var searchedCity;           // Global variable for the searched city
     var lat;                    // it's lattitute   
     var lon;                    // and it's longitute
@@ -45,7 +43,7 @@ $(document).ready(function(){       // waits to the document to fully load befor
                 url: requestUrlWeather,
                 method: 'GET',
             }).then(function (data){                                                                    // promise that waits for the data to be recieved
-                var iconUrl = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";     //sets the weather icon into a URL provided by open weather
+                var iconUrl = "https://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";     //sets the weather icon into a URL provided by open weather
                 var weatherIcon = $('<img>').attr('src', iconUrl);                                  // sets src attribute of the image tag for the icon
                 $('#city-name').text(searchedCity + " " + today);                                   // sets the searched city name and uses moment.js to get today's date
                 $('#city-name').append(weatherIcon);                                                // appends the icon
@@ -70,12 +68,12 @@ $(document).ready(function(){       // waits to the document to fully load befor
                     $('#UV').addClass('extreme rounded custom-display');
                 }
                 $('#fiveDay').empty();                  // empties out previous 5-day forecast from previous searches
-                for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to get a single card, and I'm using a for loop to iterate through and make 5 cards. I use moment().add gets the sequential days (+1 to prevent offByOne error)
+                for(var i=1; i<6; i++){                // I'm using a template literal to make a whole bunch of HTML at once to get a single card, and I'm using a for loop to iterate through and make 5 cards. I use moment().add gets the sequential days (+1 to prevent offByOne error)
                     $('#fiveDay').append(`
                     <div class="col-2" style="width: 14rem;">
                         <div class="card bg-info p-2 text-white">
-                            <p>${moment().add(i+1, 'days').format('(M/D/YYYY)')}</p>
-                            <img src="${"http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon +"@2x.png"}">
+                            <p>${moment().add(i, 'days').format('(M/D/YYYY)')}</p>
+                            <img src="${"https://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon +"@2x.png"}">
                             <p>Temp: ${data.daily[i].temp.day} &#176;F</p>
                             <p>Humidity: ${data.daily[i].humidity}%</p>
                         </div>
