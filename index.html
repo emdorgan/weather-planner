@@ -24,16 +24,16 @@
             <aside class = "col-3 bg-light">
                 <form>
                     <label>Search for a City:</label><br/>
-                    <input/>
-                    <button class="btn-primary rounded"><i class="fas fa-search"></i></button>
+                    <input id="cityName"/>
+                    <button class="btn-primary rounded" id="searchBtn"><i class="fas fa-search"></i></button>
                 </form>
                 <div id="search-results">
                     <!-- search results go here -->
                 </div>
             </aside>
             <section class ="col-9 border">
-                <article class = "row container m-2 rounded border">
-                    <h2 id="city-name">city (date)</h2>
+                <article class = "row container m-2 rounded border" id="todayWeather">
+                    <h2 id="city-name">Search for a city to get it's weather!</h2>
                     <p id="temp">Temperature: </p>
                     <p id="humidity">Humidity: </p>
                     <p id="wSpeed">Wind Speed: </p>

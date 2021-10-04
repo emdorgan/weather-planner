@@ -12,7 +12,7 @@
 
 // When user clicks on the generated button, set searchedCity to the value of the generated button and repeat step 3
 
-var searchedCity = "San Francisco";
+var searchedCity;
 var lat;
 var lon;
 var today = moment().format('(M/D/YYYY)');
@@ -21,57 +21,68 @@ var requestUrlGeo= "https://api.openweathermap.org/data/2.5/weather?q=" + search
 
 function getWeather(city){
     $.ajax({                                    
-        url: requestUrlGeo,
+        url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=266918c8637e87badd2e272562101ade",
         method: 'GET',
     }).then(function (response) {
-        
-        lat = response.coord.lat;
-        lon = response.coord.lon;
-        // console.log(lat, lon);
-        var requestUrlWeather= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=266918c8637e87badd2e272562101ade&units=imperial"; // using one-call-API since it gives a 7 day forecast
-        $.ajax({
-            url: requestUrlWeather,
-            method: 'GET',
-        }).then(function (data){
-            console.log(data);
-            var iconUrl = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";
-            var weatherIcon = $('<img>').attr('src', iconUrl);
-            $('#city-name').text(searchedCity + " " + today);
-            $('#city-name').append(weatherIcon);
-            $('#temp').html("Temperature: " + data.current.temp + " &#176;F");
-            $('#humidity').text("Humidity: " + data.current.humidity + "%");
-            $('#wSpeed').text(" Wind Speed: " + data.current.wind_speed + "MPH");
-            $('#UV').text(data.current.uvi);
-            if(data.current.uvi < 3){
-                $('#UV').addClass('favorable');
-            }
-            else if(data.current.uvi >= 3 && data.current.uvi < 6){
-                $('#UV').addClass('low');
-            }
-            else if(data.current.uvi >= 6 && data.current.uvi < 8){
-                $('#UV').addClass('moderate');
-            }
-            else if(data.current.uvi >= 8 && data.current.uvi < 11){
-                $('#UV').addClass('severe');
-            }
-            else if(data.current.uvi >= 11){
-                $('#UV').addClass('extreme');
-            }
-            for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to generate the 5 day forecast with a for loop
-                $('#fiveDay').append(`
-                <div class="col-2" style="width: 14rem;">
-                    <div class="card bg-info p-2 text-white">
-                        <p>${moment().add(i+1, 'days').format('(M/D/YYYY)')}</p>
-                        <img src="${"http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon +"@2x.png"}">
-                        <p>Temp: ${data.daily[i].temp.day} &#176;F</p>
-                        <p>Humidity: ${data.daily[i].humidity}%</p>
+        if(response.status === 404){
+            $('#city-name').text("That's not a city :(");
+        }
+        else {
+            lat = response.coord.lat;
+            lon = response.coord.lon;
+            // console.log(lat, lon);
+            var requestUrlWeather= "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=266918c8637e87badd2e272562101ade&units=imperial"; // using one-call-API since it gives a 7 day forecast
+            $.ajax({
+                url: requestUrlWeather,
+                method: 'GET',
+            }).then(function (data){
+                console.log(data);
+                var iconUrl = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";
+                var weatherIcon = $('<img>').attr('src', iconUrl);
+                $('#city-name').text(searchedCity + " " + today);
+                $('#city-name').append(weatherIcon);
+                $('#temp').html("Temperature: " + data.current.temp + " &#176;F");
+                $('#humidity').text("Humidity: " + data.current.humidity + "%");
+                $('#wSpeed').text(" Wind Speed: " + data.current.wind_speed + " MPH");
+                $('#UV').text(data.current.uvi);
+                $('#UV').removeAttr('class');
+                if(data.current.uvi < 3){
+                    $('#UV').addClass('favorable rounded custom-display');
+                }
+                else if(data.current.uvi >= 3 && data.current.uvi < 6){
+                    $('#UV').addClass('low rounded custom-display');
+                }
+                else if(data.current.uvi >= 6 && data.current.uvi < 8){
+                    $('#UV').addClass('moderate rounded custom-display');
+                }
+                else if(data.current.uvi >= 8 && data.current.uvi < 11){
+                    $('#UV').addClass('severe rounded custom-display');
+                }
+                else if(data.current.uvi >= 11){
+                    $('#UV').addClass('extreme rounded custom-display');
+                }
+                for(var i=0; i<5; i++){                // I'm using a template literal to make a whole bunch of HTML at once to generate the 5 day forecast with a for loop
+                    $('#fiveDay').append(`
+                    <div class="col-2" style="width: 14rem;">
+                        <div class="card bg-info p-2 text-white">
+                            <p>${moment().add(i+1, 'days').format('(M/D/YYYY)')}</p>
+                            <img src="${"http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon +"@2x.png"}">
+                            <p>Temp: ${data.daily[i].temp.day} &#176;F</p>
+                            <p>Humidity: ${data.daily[i].humidity}%</p>
+                        </div>
                     </div>
-                </div>
-                `)
-            }
-        });
+                    `)
+                }
+            });
+        }
     });   
 };
 
-getWeather(searchedCity);
+$('#searchBtn').on('click', function(event){
+    event.preventDefault();
+    searchedCity = $(this).siblings('#cityName').val()
+    getWeather(searchedCity);
+})
+
+// getWeather(searchedCity);
 
